@@ -1,4 +1,4 @@
-# 自动复活助手 · AutoReviveHelper
+# 自动999 · AutoReviveHelper
 
 一个 FF14 Dalamud 插件，专门解决「死了没人管」这个破事。
 
@@ -77,14 +77,14 @@
 https://raw.githubusercontent.com/arcnapan/AutoReviveHelper/main/pluginmaster.json
 ```
 
-保存后回插件列表点「刷新」，找到「自动复活助手」，勾上启用。
+保存后回插件列表点「刷新」，找到「自动999」，勾上启用。
 
 > 加不上、下载失败，多半是国内直连 `raw.githubusercontent.com` 被掐。挂代理再试，或者用下面的手动方式。
 
 **手动装**：把仓库里的 `latest.zip` 下载下来，解压到：
 
 ```
-%APPDATA%\XIVLauncherCN\installedPlugins\AutoReviveHelper\1.1.0.0\
+%APPDATA%\XIVLauncherCN\installedPlugins\AutoReviveHelper\1.3.2.0\
 ```
 
 重启游戏，`/xlplugins` 里启用。
@@ -169,7 +169,17 @@ https://raw.githubusercontent.com/arcnapan/AutoReviveHelper/main/pluginmaster.js
 
 1. 长按这条没法在所有机器上预先验证。第一次用建议开调试日志，看聊天框有没有打出「死亡已超过 X 分钟无人救助，准备返回入口」。
 2. 某些版本的长按组件可能不是 `AtkComponentHoldButton278`（还有 `280` / `288`），真遇到没反应就把 `dalamud.log` 发出来。
-3. 坐标用的是兜底换算（世界坐标压成 0~100 百分制），多数野外地图量级一致，但不保证和地图读数完全相符。
+3. 坐标换算依赖当前地图行数据（`Map` 表的 `SizeFactor` / `OffsetX` / `OffsetY`）。取不到时退回粗略换算，日志里会写明。取到的时候和地图读数一致。
+
+## 坐标是怎么算出来的
+
+用的是 Dalamud 自带的 `Dalamud.Utility.MapUtil.WorldToMap`，按当前地图的 `SizeFactor` 和 `OffsetX/Y` 换算，
+不是自己推的公式。
+
+> 1.3.2.0 之前这里有个真 bug：自己写的公式把 `sizeFactor/100` 当成 `mapScale`，
+> 算出负数缩放，精确坐标永远停在 1.0。现在整段换成了内置实现。
+
+游戏里的世界坐标是（东西、高度、南北），地图读数是（东西、南北），换算时 Y/Z 会换位，这是 `MapUtil` 自己处理的。
 
 ## 文件说明
 
@@ -189,8 +199,12 @@ dotnet build -c Release -p:DalamudLibPath="$env:APPDATA\XIVLauncherCN\addon\Hook
 - `git add -A` + `git add -f latest.zip`（`.gitignore` 会挡 zip，必须 `-f`）
 - `git commit` + `git push`
 
-**1.3.0.0** —— 调试独立成模块（可自选开关与详细程度、会话计数）；界面中英文切换（窗口下拉 + `/autorevive lang zh|en`）
+**1.3.2.0** —— 插件改名「自动999」；坐标换算整段换成 Dalamud 内置 `MapUtil.WorldToMap`，修掉精确坐标恒为 1.0 的老 bug；补坐标回归测试
 
-上一版 **1.2.0.0** —— 进博兹雅 / 新月岛自动开启，离开自动关闭
+上一版 **1.3.1.0** —— 改名「自动999」（manifest / 窗口标题 / 聊天框提示 / 插件源）
 
-再上一版 **1.1.0.0** —— 喊话间隔 X 分钟 + 超时 Y 分钟自动长按返回副本入口
+再上一版 **1.3.0.0** —— 调试独立成模块（可自选开关与详细程度、会话计数）；界面中英文切换（窗口下拉 + `/autorevive lang zh|en`）
+
+更早 **1.2.0.0** —— 进博兹雅 / 新月岛自动开启，离开自动关闭
+
+更早 **1.1.0.0** —— 喊话间隔 X 分钟 + 超时 Y 分钟自动长按返回副本入口
