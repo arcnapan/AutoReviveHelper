@@ -1,0 +1,28 @@
+[
+  {
+    "Author": "Dabingyu",
+    "Name": "自动复活助手",
+    "InternalName": "AutoReviveHelper",
+    "AssemblyVersion": "1.0.0.0",
+    "Punchline": "死了自动喊 999 报坐标，别人拉你就秒接，复活后自动道谢。",
+    "Description": "死亡时自动在指定频道喊话「999 + 地图名 + 坐标」，自动接受他人的复活邀请，复活成功后自动发送感谢文案。频道、文案模板、冷却、各项开关均可在设置窗口里调整。",
+    "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/your-name/AutoReviveHelper",
+    "IconUrl": "",
+    "Tags": [
+      "revive",
+      "chat",
+      "utility",
+      "复活",
+      "自动"
+    ],
+    "CategoryTags": [
+      "utility"
+    ],
+    "DalamudApiLevel": 15,
+    "LoadPriority": 0,
+    "AcceptsFeedback": false,
+    "DownloadLinkInstall": "https://raw.githubusercontent.com/your-name/AutoReviveHelper/main/latest.zip",
+    "DownloadLinkUpdate": "https://raw.githubusercontent.com/your-name/AutoReviveHelper/main/latest.zip"
+  }
+]
