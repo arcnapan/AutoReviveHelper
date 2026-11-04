@@ -84,7 +84,7 @@ https://raw.githubusercontent.com/arcnapan/AutoReviveHelper/main/pluginmaster.js
 **手动装**：把仓库里的 `latest.zip` 下载下来，解压到：
 
 ```
-%APPDATA%\XIVLauncherCN\installedPlugins\AutoReviveHelper\1.3.2.0\
+%APPDATA%\XIVLauncherCN\installedPlugins\AutoReviveHelper\1.3.3.0\
 ```
 
 重启游戏，`/xlplugins` 里启用。
@@ -199,9 +199,11 @@ dotnet build -c Release -p:DalamudLibPath="$env:APPDATA\XIVLauncherCN\addon\Hook
 - `git add -A` + `git add -f latest.zip`（`.gitignore` 会挡 zip，必须 `-f`）
 - `git commit` + `git push`
 
-**1.3.2.0** —— 插件改名「自动999」；坐标换算整段换成 Dalamud 内置 `MapUtil.WorldToMap`，修掉精确坐标恒为 1.0 的老 bug；补坐标回归测试
+**1.3.3.0** —— 移除对 `Dalamud.Excel.Sheets` 的运行时依赖。国服 Dalamud 安装包不带这个 dll，之前一查地图表就抛 `FileNotFoundException`，聊天框会被刷屏；现在改用不碰 Excel 表的方式取参数，坐标走与地图尺寸无关的兜底换算
 
-上一版 **1.3.1.0** —— 改名「自动999」（manifest / 窗口标题 / 聊天框提示 / 插件源）
+上一版 **1.3.2.0** —— 插件改名「自动999」；坐标换算整段换成 Dalamud 内置 `MapUtil.WorldToMap`，修掉精确坐标恒为 1.0 的老 bug；补坐标回归测试
+
+再上一版 **1.3.1.0** —— 改名「自动999」（manifest / 窗口标题 / 聊天框提示 / 插件源）
 
 再上一版 **1.3.0.0** —— 调试独立成模块（可自选开关与详细程度、会话计数）；界面中英文切换（窗口下拉 + `/autorevive lang zh|en`）
 
